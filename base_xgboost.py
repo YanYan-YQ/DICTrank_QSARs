@@ -67,7 +67,7 @@ def para_selection(var, X, X_test, y, y_test, base_path):
     n_estimators = [100, 300, 500,700]
     max_depth = [7, 9, 11]
     subsample = [0.7, 0.8, 1]
-    scale_pos_weight=[0.37]
+    scale_pos_weight=[0.28]
 
     paras = [l for l in itertools.product(lr, n_estimators, max_depth, subsample, scale_pos_weight)]
 

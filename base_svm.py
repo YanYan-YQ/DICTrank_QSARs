@@ -146,37 +146,29 @@ def para_selection(var, X, X_test, y, y_test, base_path):
 base_path = '/compute01/yqu/dictrank/results/mold2'
 
 #read data
-DICT = pd.read_excel(r'/compute01/yqu/dictrank/data/DICTrank_Mold2_1006.xlsx')
+DICT = pd.read_csv('/compute01/yqu/dictrank/data/dictmold2_777.csv')
 
-## remove the "Ambiguous-DICT concern" drugs
+
 print(DICT.shape)
-DICT.drop(DICT[DICT['DICT']=='Ambiguous'].index,inplace=True)
-
-## Classify the "Less- and Most- DICT concern " as cardiotox positive  and label "1"
-## classify the "No-DICT concern" as cardiotox negtive and label "0"
-DICT.loc[DICT['DICT']=="Less",'DICT']=1
-DICT.loc[DICT['DICT']=="Most",'DICT']=1
-DICT.loc[DICT['DICT']=="No",'DICT']=0
 
 #get the feature columns
-cols=DICT.columns[-700:]
-data=DICT[['DICT',*cols]]
+cols=DICT.columns[-777:]
+data=DICT[['label','Usage', *cols]]
 print(data.shape)
 
 zero_cols = data.columns[(data == 0).all()]
 data.drop(zero_cols, axis=1, inplace=True)
+cols = data.columns[2:]
 print(data.shape)
 
-X1=data.iloc[:,1:]
-y1=data["DICT"]
-X1=X1.fillna(0)
-
-## data and split(random and stratify)
-X, X_test, y, y_test = train_test_split(X1, y1, test_size=.2,stratify=y1,random_state=42)
+## data split
+X, y, = data.loc[data.Usage=='training', cols], data.loc[data.Usage=='training', 'label'] 
+X_test, y_test = data.loc[data.Usage=='test', cols], data.loc[data.Usage=='test', 'label']
 print('X_train shape:', X.shape)
 print('X_test shape:', X_test.shape)
 print('y_train shape:', y.shape)
 print('y_test shape:',y_test.shape)
+
 
 para_selection(var, X, X_test, y, y_test, base_path+'/svm/svm'+ var)
    

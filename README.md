@@ -14,7 +14,7 @@ base_rf.py (develop RF classifiers)
 
 base_xgboost.py (develop XGBoost classifier)
 
-
+main.py (five classifiers using drugs approved before 2005 and evaluated their performance on drugs approved thereafter)
 
 ## Model development environment 
 

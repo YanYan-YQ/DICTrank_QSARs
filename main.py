@@ -53,25 +53,25 @@ for descriptor in ['mold2']:
        colsN = 777
     print(DICT.shape)
     
-    #get the feature columns
-    cols=DICT.columns[-colsN:]
-    data=DICT[['DICT',*cols]]
+   #get the feature columns
+    cols=DILI.columns[-colsN:]
+    data=DILI[['label','Usage', *cols]]
     print(data.shape)
 
     zero_cols = data.columns[(data == 0).all()]
     data.drop(zero_cols, axis=1, inplace=True)
+    cols = data.columns[2:]
     print(data.shape)
 
-    X1=data.iloc[:,1:]
-    y1=data["DICT"]
-    X1=X1.fillna(0)
-
-    ## data and split(random and stratify)
-    X, X_test, y, y_test = train_test_split(X1, y1, test_size=.2,stratify=y1,random_state=42)
+    ## data split
+    X, y, = data.loc[data.Usage=='training', cols], data.loc[data.Usage=='training', 'label'] 
+    X_test, y_test = data.loc[data.Usage=='test', cols], data.loc[data.Usage=='test', 'label']
     print('X_train shape:', X.shape)
     print('X_test shape:', X_test.shape)
     print('y_train shape:', y.shape)
     print('y_test shape:',y_test.shape)
+    
+
     
     runSingleDataset(X, X_test, y, y_test, base_path, descriptor, bestParaDf)
         

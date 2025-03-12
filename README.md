@@ -4,7 +4,7 @@ DICTrank_QSARs provides Machine Learning QSARs Models to Predict Comprehensive C
 
 ##  Script
 
-base_knn.py (develop KNN classifier)
+base_knn.py (develop KNN classifier )
 
 base_lr.py (develop LR classifier)
 
@@ -13,6 +13,7 @@ base_svm.py (develop SVM classifier)
 base_rf.py (develop RF classifiers)
 
 base_xgboost.py (develop XGBoost classifier)
+
 
 
 ## Model development environment 
